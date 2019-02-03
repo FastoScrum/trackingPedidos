@@ -10,7 +10,7 @@ namespace TrackingPedidos.Services
 {
     public class ApiService
     {
-        public async Task<Response> GetInvoices<T>(string urlBase, string servicePrefix)
+        public async Task<Response> GetList<T>(string urlBase, string servicePrefix)
         {
             try
             {

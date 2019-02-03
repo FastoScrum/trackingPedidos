@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using TrackingPedidos.Data;
+using TrackingPedidos.Models;
 using TrackingPedidos.Policies;
 
 namespace TrackingPedidos
@@ -37,6 +38,10 @@ namespace TrackingPedidos
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDbContext<TrackingContext>(options =>
+                options.UseNpgsql(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
             services.ConfigureApplicationCookie(options =>
             {
