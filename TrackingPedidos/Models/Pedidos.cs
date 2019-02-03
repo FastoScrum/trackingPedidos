@@ -7,27 +7,41 @@ namespace TrackingPedidos.Models
     {
         [Key]
         public int PedId { get; set; }
+
+        [Display(Name = "Número Factura")]
         public string InvoiceNumber { get; set; }
-        public int CliId { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        public string ClienteEmail { get; set; }
 
         [DataType(DataType.Currency)]
+        [Display(Name = "Total")]
         public decimal PedTotal { get; set; }
 
+        [Display(Name = "Fecha envio")]
         public DateTime PedFechaEnvio { get; set; }
+
         public char PedFase { get; set; }
+
+        [Display(Name = "Lugar Origen")]
         public string PedLugarOrigen { get; set; }
+
+        [Display(Name = "Lugar Destino")]
         public string PedLugarDestino { get; set; }
-        public string PedDireccionDestino { get; set; }
+
+        public string PedDireccionEntrega { get; set; }
         public bool PedEnvioEstandar { get; set; }
 
         [DataType(DataType.Currency)]
         public decimal PedCostoExtra { get; set; }
 
         public bool PedRegalo { get; set; }
-        public DateTime PedFechaDespachado { get; set; }
+        public DateTime? PedFechaDespachado { get; set; }
         public DateTime? PedFechaCamino { get; set; }
         public DateTime? PedFechaFin { get; set; }
+        public DateTime? PedFechaEntrega { get; set; }
         public string PedDescripcion { get; set; }
+        public string PedTarjeta { get; set; }
 
         public Entregas Entregas { get; set; }
     }

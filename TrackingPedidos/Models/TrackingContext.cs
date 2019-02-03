@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace TrackingPedidos.Models
 {
@@ -78,7 +76,10 @@ namespace TrackingPedidos.Models
                     .HasColumnName("ped_id")
                     .HasDefaultValueSql("nextval('pedidos_ped_id_seq'::regclass)");
 
-                entity.Property(e => e.CliId).HasColumnName("cli_id");
+                entity.Property(e => e.ClienteEmail)
+                    .IsRequired()
+                    .HasColumnName("cliente_email")
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.InvoiceNumber)
                     .IsRequired()
@@ -91,24 +92,24 @@ namespace TrackingPedidos.Models
 
                 entity.Property(e => e.PedDescripcion).HasColumnName("ped_descripcion");
 
-                entity.Property(e => e.PedDireccionDestino)
+                entity.Property(e => e.PedDireccionEntrega)
                     .IsRequired()
-                    .HasColumnName("ped_direccion_destino")
+                    .HasColumnName("ped_direccion_entrega")
                     .HasMaxLength(30);
 
                 entity.Property(e => e.PedEnvioEstandar).HasColumnName("ped_envio_estandar");
 
                 entity.Property(e => e.PedFase)
                     .HasColumnName("ped_fase")
-                    .HasDefaultValueSql("'I'::bpchar");
+                    .HasDefaultValueSql("'P'::bpchar");
 
                 entity.Property(e => e.PedFechaCamino).HasColumnName("ped_fecha_camino");
 
                 entity.Property(e => e.PedFechaDespachado).HasColumnName("ped_fecha_despachado");
 
-                entity.Property(e => e.PedFechaEnvio)
-                    .HasColumnName("ped_fecha_envio")
-                    .HasColumnType("date");
+                entity.Property(e => e.PedFechaEntrega).HasColumnName("ped_fecha_entrega");
+
+                entity.Property(e => e.PedFechaEnvio).HasColumnName("ped_fecha_envio");
 
                 entity.Property(e => e.PedFechaFin).HasColumnName("ped_fecha_fin");
 
@@ -123,6 +124,8 @@ namespace TrackingPedidos.Models
                     .HasMaxLength(30);
 
                 entity.Property(e => e.PedRegalo).HasColumnName("ped_regalo");
+
+                entity.Property(e => e.PedTarjeta).HasColumnName("ped_tarjeta");
 
                 entity.Property(e => e.PedTotal)
                     .HasColumnName("ped_total")

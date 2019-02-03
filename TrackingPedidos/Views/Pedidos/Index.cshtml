@@ -6,7 +6,7 @@
 
 <div class="card mb-3">
     <div class="card-header">
-        <i class="fas fa-table"></i>
+        <i class="fas fa-truck-moving"></i>
         Pedidos
     </div>
     <div class="card-body">
@@ -14,9 +14,8 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Numero Factura</th>
+                        <th>Número Factura</th>
                         <th>Total</th>
-                        <th>Cliente</th>
                         <th># Productos</th>
                         <th>Fecha Registro</th>
                         <th></th>
@@ -24,9 +23,8 @@
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>Numero Factura</th>
+                        <th>Número Factura</th>
                         <th>Total</th>
-                        <th>Cliente</th>
                         <th># Productos</th>
                         <th>Fecha Registro</th>
                         <th></th>
@@ -38,10 +36,10 @@
                         <tr>
                             <td>@item.invoice_number</td>
                             <td>@item.total</td>
-                            <td>@item.user_client.lastname @item.user_client.name</td>
                             <td>@item.invoice_details.Count</td>
                             <td>@item.created_at</td>
                             <td>
+                                <a class="btn btn-success btn-xs" title="Enviar" asp-action="Send" asp-route-id="@item.invoice_number"><i class="fa fa-paper-plane" aria-hidden="true"></i></a>
                                 <a class="btn btn-info btn-xs active" title="Detalles" asp-action="Details" asp-route-id="@item.invoice_number"><i class="fa fa-folder-open" aria-hidden="true"></i></a>
                             </td>
                         </tr>

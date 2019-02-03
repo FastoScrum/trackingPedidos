@@ -63,7 +63,8 @@ namespace TrackingPedidos.Services
                 }
 
                 var result = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Invoice>(result);
+                var list = JsonConvert.DeserializeObject<List<Invoice>>(result);
+                return list[0];
             }
             catch
             {

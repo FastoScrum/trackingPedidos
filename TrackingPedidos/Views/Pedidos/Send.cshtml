@@ -1,0 +1,94 @@
+﻿@model TrackingPedidos.ViewModels.SeguimientoVM
+
+@{
+    ViewData["Title"] = "Facturación de Envío";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-file-invoice-dollar"></i> <strong>Facturación de Envío</strong>
+            </div>
+            <form method="post">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="InvoiceNumber" class="control-label"></label>
+                        <input asp-for="InvoiceNumber" readonly class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PedTotal" class="control-label"></label>
+                        <input asp-for="PedTotal" type="number" readonly class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PedLugarOrigen" class="control-label"></label>
+                        <input asp-for="PedLugarOrigen" class="form-control" />
+                        <span asp-validation-for="PedLugarOrigen" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PedLugarDestino" class="control-label"></label>
+                        <input asp-for="PedLugarDestino" class="form-control" />
+                        <span asp-validation-for="PedLugarDestino" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PedTipoEnvio" class="control-label"></label>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" asp-for="PedTipoEnvio" id="PedEnvioEstandar" value="T">Estándar (3-7 días) $0
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" id="PedEnvioEspecial" asp-for="PedTipoEnvio" value="P">Especial (1-2 días) $5
+                            </label>
+                        </div>
+                        <span asp-validation-for="PedTipoEnvio" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PedRegalo" class="control-label"></label>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" id="RegaloS" asp-for="PedRegalo" value="S">Sí ($10)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" id="RegaloN" asp-for="PedRegalo" value="N">No ($0)
+                            </label>
+                        </div>
+                        <span asp-validation-for="PedRegalo" class="text-danger"></span>
+                    </div>
+                    <div class="form-row row-tarjeta">
+                        <div class="form-group col-md-12">
+                            <label asp-for="PedTarjeta" class="control-label"></label>
+                            <textarea rows="2" asp-for="PedTarjeta" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-md btn-secondary" asp-action="Index">Regresar</a>
+                    <button type="submit" class="btn btn-md btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(function () {
+            $(".row-tarjeta").hide();
+        });
+        $('input[type=radio][name=PedRegalo]').change(function () {
+            if (this.value == 'N') {
+                $(".row-tarjeta").hide();
+                $("#PedTarjeta").val("");
+            }
+            else if (this.value == 'S') {
+                $(".row-tarjeta").show();
+            }
+        });
+    </script>
+}
