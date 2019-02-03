@@ -1,9 +1,18 @@
 ﻿  <!-- Sidebar -->
-@{ 
+@{
     var controller = ViewContext.RouteData.Values["Controller"];
-    var action = ViewContext.RouteData.Values["Action"];
-    var activeDashboard = controller.ToString().ToLower().Equals("dashboard") ? "active" : "";
-    var activePedidos = controller.ToString().ToLower().Equals("pedidos") ? "active" : "";
+    var activeDashboard = "";
+    var activePedidos = "";
+    var activeSeguimiento = "";
+    if (controller != null)
+    {
+        var action = ViewContext.RouteData.Values["Action"];
+        activeDashboard = controller.ToString().ToLower().Equals("dashboard") ? "active" : "";
+        activePedidos = controller.ToString().ToLower().Equals("pedidos") ? "active" : "";
+        activeSeguimiento = controller.ToString().ToLower().Equals("seguimientos") ? "active" : "";
+    }
+
+    var isAdmi = User.IsInRole("Admi");
 }
 
 <ul class="sidebar navbar-nav">
@@ -13,10 +22,23 @@
             <span>Dashboard</span>
         </a>
     </li>
-    <li class="nav-item @activePedidos">
-        <a class="nav-link" asp-controller="Pedidos" asp-action="Index">
-            <i class="fas fa-fw fa-truck-moving"></i>
-            <span>Pedidos</span>
-        </a>
-    </li>
+    @if (!isAdmi)
+    {
+        <li class="nav-item @activePedidos">
+            <a class="nav-link" asp-controller="Pedidos" asp-action="Index">
+                <i class="fas fa-fw fa-truck-moving"></i>
+                <span>Pedidos</span>
+            </a>
+        </li>
+    }
+    @if (isAdmi)
+    {
+
+        <li class="nav-item @activeSeguimiento">
+            <a class="nav-link" asp-controller="Seguimientos" asp-action="Index">
+                <i class="fas fa-fw fa-globe"></i>
+                <span>Seguimientos</span>
+            </a>
+        </li>
+    }
 </ul>
