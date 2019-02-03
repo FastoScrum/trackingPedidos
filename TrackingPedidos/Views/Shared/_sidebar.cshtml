@@ -12,7 +12,7 @@
         activeSeguimiento = controller.ToString().ToLower().Equals("seguimientos") ? "active" : "";
     }
 
-    var isAdmi = User.IsInRole("Admi");
+    var isAdmi = User.IsInRole("Administrador");
 }
 
 <ul class="sidebar navbar-nav">

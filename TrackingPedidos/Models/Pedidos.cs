@@ -44,5 +44,37 @@ namespace TrackingPedidos.Models
         public string PedTarjeta { get; set; }
 
         public Entregas Entregas { get; set; }
+
+        public string FullEstado
+        {
+            get
+            {
+                if (this.PedFase == 'P')
+                {
+                    return "Pendiente";
+                }
+                else if (this.PedFase == 'I')
+                {
+                    return "Despachado";
+                }
+                else if (this.PedFase == 'C')
+                {
+                    return "En Camino";
+                }
+                else if (this.PedFase == 'F')
+                {
+                    return "En Distribuidora";
+                }
+                else if (this.PedFase == 'E')
+                {
+                    return "Entregado";
+                }
+                else if (this.PedFase == 'N')
+                {
+                    return "No Entregado";
+                }
+                return null;
+            }
+        }
     }
 }
