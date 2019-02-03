@@ -50,6 +50,16 @@
                                     <a class="btn btn-success btn-xs active" title="Despachar" data-toggle="modal" data-target="#modalConfirm"
                                        data-action="PackOff" data-id="@item.PedId" data-factura="@item.InvoiceNumber"><i class="fa fa-box-open" aria-hidden="true"></i></a>
                                 }
+                                else if (item.PedFase == 'I')
+                                {
+                                    <a class="btn btn-success btn-xs active" title="Poner en camino" data-toggle="modal" data-target="#modalConfirm"
+                                       data-action="OnWay" data-id="@item.PedId" data-factura="@item.InvoiceNumber"><i class="fa fa-truck-loading" aria-hidden="true"></i></a>
+                                }
+                                else if (item.PedFase == 'C')
+                                {
+                                    <a class="btn btn-success btn-xs active" title="Finalizar" data-toggle="modal" data-target="#modalConfirm"
+                                       data-action="End" data-id="@item.PedId" data-factura="@item.InvoiceNumber"><i class="fa fa-flag-checkered" aria-hidden="true"></i></a>
+                                }
                                 <a class="btn btn-info btn-xs active" title="Detalles" asp-action="Details" asp-route-id="@item.InvoiceNumber"><i class="fa fa-folder-open" aria-hidden="true"></i></a>
                             </td>
                         </tr>
@@ -87,10 +97,14 @@
 
                 if (action == "PackOff") {
                     bodyText = "despachar";
+                } else if (action == "OnWay") {
+                    bodyText = "poner en camino";
+                } else if (action == "End") {
+                    bodyText = "finalizar";
                 }
 
                 modal.find(".modal-content .modal-title").html("Confirmación");
-                modal.find(".modal-content .modal-body").html("¿Está seguro de <b>" + bodyText + "</b> el pedido con factura Nro <b>" + factura + "</b>?");
+                modal.find(".modal-content .modal-body").html("¿Está seguro de <b>" + bodyText + "</b> el pedido con Factura Nro <b>" + factura + "</b>?");
                 modal.find(".modal-content form").attr('action', actionText);
             });
         });
