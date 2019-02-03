@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TrackingPedidos.Models;
 using TrackingPedidos.Services;
 using TrackingPedidos.ViewModels;
+using Vereyon.Web;
 
 namespace TrackingPedidos.Controllers
 {
@@ -16,11 +17,13 @@ namespace TrackingPedidos.Controllers
     {
         private readonly ApiService _api;
         private readonly TrackingContext _context;
+        public IFlashMessage _flashMessage { get; private set; }
 
-        public PedidosController(TrackingContext context)
+        public PedidosController(TrackingContext context, IFlashMessage flashMessage)
         {
             _api = new ApiService();
             _context = context;
+            _flashMessage = flashMessage;
         }
 
         public async Task<IActionResult> Index()
@@ -113,6 +116,7 @@ namespace TrackingPedidos.Controllers
 
                     _context.Add(pedido);
                     await _context.SaveChangesAsync();
+                    _flashMessage.Confirmation("Pedido enviado.");
 
                     return RedirectToAction(nameof(Index));
                 }

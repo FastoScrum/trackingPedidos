@@ -1,0 +1,115 @@
+﻿@model TrackingPedidos.Models.Pedidos
+
+@{
+    ViewData["Title"] = "Detalles del Envío";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-paper-plane"></i> <strong>Detalles del Envío</strong>
+            </div>
+            <div class="card-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.InvoiceNumber)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.InvoiceNumber)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PedFase)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FullEstado)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PedTotal)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.PedTotal)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PedCostoExtra)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.PedCostoExtra)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PedFechaEnvio)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.PedFechaEnvio)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PedEnvioEstandar)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.TipoEnvio)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PedRegalo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.TipoRegalo)
+                    </dd>
+                    @if (Model.PedRegalo)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PedTarjeta)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.PedTarjeta)
+                        </dd>
+                    }
+                    @if (Model.PedFase == 'I')
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PedFechaDespachado)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.PedFechaDespachado)
+                        </dd>
+                    }
+                    else if (Model.PedFase == 'C')
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PedFechaCamino)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.PedFechaCamino)
+                        </dd>
+                        <dt>
+                            Tiempo aproximado de llegada
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.TiempoEstimado) día(s)
+                        </dd>
+                    }
+                    else if (Model.PedFase == 'F')
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PedFechaFin)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.PedFechaFin)
+                        </dd>
+                    }
+                    else if (Model.PedFase == 'E')
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PedFechaEntrega)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.PedFechaEntrega)
+                        </dd>
+                    }
+                </dl>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-md btn-secondary" asp-action="Index">Regresar</a>
+            </div>
+        </div>
+    </div>
+</div>

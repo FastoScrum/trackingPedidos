@@ -4,12 +4,14 @@
     var activeDashboard = "";
     var activePedidos = "";
     var activeSeguimiento = "";
+    var activeEnvios = "";
     if (controller != null)
     {
         var action = ViewContext.RouteData.Values["Action"];
         activeDashboard = controller.ToString().ToLower().Equals("dashboard") ? "active" : "";
         activePedidos = controller.ToString().ToLower().Equals("pedidos") ? "active" : "";
         activeSeguimiento = controller.ToString().ToLower().Equals("seguimientos") ? "active" : "";
+        activeEnvios = controller.ToString().ToLower().Equals("envios") ? "active" : "";
     }
 
     var isAdmi = User.IsInRole("Administrador");
@@ -28,6 +30,12 @@
             <a class="nav-link" asp-controller="Pedidos" asp-action="Index">
                 <i class="fas fa-fw fa-truck-moving"></i>
                 <span>Pedidos</span>
+            </a>
+        </li>
+        <li class="nav-item @activeEnvios">
+            <a class="nav-link" asp-controller="Envios" asp-action="Index">
+                <i class="fas fa-fw fa-paper-plane"></i>
+                <span>Envíos</span>
             </a>
         </li>
     }
