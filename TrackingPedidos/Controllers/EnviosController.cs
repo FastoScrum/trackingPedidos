@@ -29,7 +29,7 @@ namespace TrackingPedidos.Controllers
 
         public async Task<IActionResult> Details(string id)
         {
-            var pedido = await _context.Pedidos.Include(i => i.Entregas).FirstAsync(i => i.InvoiceNumber == id);
+            var pedido = await _context.Pedidos.Include(i => i.Entregas).FirstOrDefaultAsync(i => i.InvoiceNumber == id);
             if (pedido == null)
             {
                 return NotFound();

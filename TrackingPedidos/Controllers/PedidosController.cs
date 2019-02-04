@@ -53,7 +53,7 @@ namespace TrackingPedidos.Controllers
         // GET: Pedidos/Send
         public async Task<IActionResult> Send(string id)
         {
-            var pedido = await _context.Pedidos.FirstAsync(i => i.InvoiceNumber == id);
+            var pedido = await _context.Pedidos.FirstOrDefaultAsync(i => i.InvoiceNumber == id);
             if (pedido != null)
             {
                 return Forbid();

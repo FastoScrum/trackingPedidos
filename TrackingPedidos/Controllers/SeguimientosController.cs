@@ -124,13 +124,17 @@ namespace TrackingPedidos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delivery(string id, EntregaVM _entrega)
         {
-            if (!ModelState.IsValid)
+            if(_entrega.Estado && _entrega.PersonaPresente)
             {
-                return View(_entrega);
+                if (!ModelState.IsValid)
+                {
+                    return View(_entrega);
+                }
             }
+            
             try
             {
-                var seguimiento = await _context.Pedidos.FirstAsync(i => i.InvoiceNumber == id);
+                var seguimiento = await _context.Pedidos.FirstOrDefaultAsync(i => i.InvoiceNumber == id);
                 if (seguimiento == null)
                 {
                     return NotFound();
