@@ -105,6 +105,24 @@
                             @Html.DisplayFor(model => model.PedFechaEntrega)
                         </dd>
                     }
+                    else if (Model.PedFase == 'N')
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PedDescripcion)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.PedDescripcion)
+                        </dd>
+                    }
+                    @if (Model.Entregas != null)
+                    {
+                        <dt>
+                           Entregado a:
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Entregas.FullName)
+                        </dd>
+                    }
                 </dl>
             </div>
             <div class="card-footer">

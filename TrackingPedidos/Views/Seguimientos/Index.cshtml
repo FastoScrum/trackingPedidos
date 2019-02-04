@@ -60,6 +60,10 @@
                                     <a class="btn btn-success btn-xs active" title="Finalizar" data-toggle="modal" data-target="#modalConfirm"
                                        data-action="End" data-id="@item.PedId" data-factura="@item.InvoiceNumber"><i class="fa fa-flag-checkered" aria-hidden="true"></i></a>
                                 }
+                                else if (item.PedFase == 'F')
+                                {
+                                    <a class="btn btn-success btn-xs active" title="Entregar" asp-action="Delivery" asp-route-id="@item.InvoiceNumber"><i class="fa fa-archive" aria-hidden="true"></i></a>
+                                }
                             </td>
                         </tr>
                     }

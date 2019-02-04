@@ -59,6 +59,11 @@ namespace TrackingPedidos.Models
                     .HasColumnName("ent_per_nombres")
                     .HasMaxLength(30);
 
+                entity.Property(e => e.EntParentesco)
+                   .IsRequired()
+                   .HasColumnName("ent_parentesco")
+                   .HasMaxLength(20);
+
                 entity.Property(e => e.PedId).HasColumnName("ped_id");
 
                 entity.HasOne(d => d.Ped)

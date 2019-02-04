@@ -32,6 +32,18 @@ namespace TrackingPedidos.Controllers
             var response = await _api.GetList<Invoice>("http://facturacion-utn-amazon.herokuapp.com", "/api/invoices-utn");
             if (response.IsSuccess)
             {
+                //var pedidos = await _context.Pedidos
+                //    .Where(i => i.ClienteEmail == email)
+                //    .AsNoTracking().ToListAsync();
+
+                //var registrados = new List<string>();
+                //foreach (var item in pedidos)
+                //{
+                //    registrados.Add(item.InvoiceNumber);
+                //}
+
+                //ViewData["Registados"] = registrados;
+
                 var lista = (List<Invoice>)response.Result;
                 return View(lista.Where(i => i.user_client.email == email));
             }
@@ -41,6 +53,11 @@ namespace TrackingPedidos.Controllers
         // GET: Pedidos/Send
         public async Task<IActionResult> Send(string id)
         {
+            var pedido = await _context.Pedidos.FirstAsync(i => i.InvoiceNumber == id);
+            if (pedido != null)
+            {
+                return Forbid();
+            }
             var invoice = await _api.GetInvoice("http://facturacion-utn-amazon.herokuapp.com", "/api/invoice", id);
             if (invoice == null)
             {
