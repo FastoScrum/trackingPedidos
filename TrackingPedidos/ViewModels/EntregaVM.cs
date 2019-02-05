@@ -14,13 +14,20 @@ namespace TrackingPedidos.ViewModels
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
+        [Required(ErrorMessage = "Parentesco es obligatorio.")]
         public string Parentesco { get; set; }
+
+        [Required(ErrorMessage = "Apellidos son obligatorios.")]
         public string Apellidos { get; set; }
+
+        [Required(ErrorMessage = "Nombres son obligatorios.")]
         public string Nombres { get; set; }
 
+        [Required(ErrorMessage = "Celular es obligatorio.")]
         [DataType(DataType.PhoneNumber)]
         public string Celular { get; set; }
 
+        [Required(ErrorMessage = "Cédula es obligatorio.")]
         [Display(Name = "Cédula")]
         [Identification]
         public string Identificacion { get; set; }

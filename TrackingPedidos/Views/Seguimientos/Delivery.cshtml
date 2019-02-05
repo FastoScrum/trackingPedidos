@@ -22,7 +22,8 @@
                     <div class="form-row row-situacion">
                         <div class="form-group col-md-12">
                             <label asp-for="Descripcion" class="control-label"></label>
-                            <input asp-for="Descripcion" required class="form-control" maxlength="30" />
+                            <input asp-for="Descripcion" data-val="true" data-val-required="Descripción es obligatorio." class="form-control" maxlength="30" />
+                            <span asp-validation-for="Descripcion" class="text-danger"></span>
                         </div>
                     </div>
                     <div id="section-person">
@@ -34,33 +35,33 @@
                         </div>
                         <div class="form-group group-lugar">
                             <label asp-for="Direccion" class="control-label"></label>
-                            <input asp-for="Direccion" required class="form-control" />
+                            <input asp-for="Direccion" data-val="true" data-val-required="Dirección es obligatorio." class="form-control" />
                             <span asp-validation-for="Direccion" class="text-danger"></span>
                         </div>
                         <div id="data-person">
                             <div class="form-group">
                                 <label asp-for="Identificacion" class="control-label"></label>
-                                <input asp-for="Identificacion" required maxlength="10" class="form-control" />
+                                <input asp-for="Identificacion" maxlength="10" class="form-control" />
                                 <span asp-validation-for="Identificacion" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Apellidos" class="control-label"></label>
-                                <input asp-for="Apellidos" required class="form-control" maxlength="30" />
+                                <input asp-for="Apellidos" class="form-control" maxlength="30" />
                                 <span asp-validation-for="Apellidos" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Nombres" class="control-label"></label>
-                                <input asp-for="Nombres" required class="form-control" maxlength="30" />
+                                <input asp-for="Nombres" class="form-control" maxlength="30" />
                                 <span asp-validation-for="Nombres" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Celular" class="control-label"></label>
-                                <input asp-for="Celular" required class="form-control" maxlength="10" />
+                                <input asp-for="Celular" class="form-control" maxlength="10" />
                                 <span asp-validation-for="Celular" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Parentesco" class="control-label"></label>
-                                <input asp-for="Parentesco" required class="form-control" maxlength="20" />
+                                <input asp-for="Parentesco" class="form-control" maxlength="20" />
                                 <span asp-validation-for="Parentesco" class="text-danger"></span>
                             </div>
                         </div>

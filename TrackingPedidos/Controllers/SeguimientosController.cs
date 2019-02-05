@@ -179,7 +179,7 @@ namespace TrackingPedidos.Controllers
 
                     await _context.SaveChangesAsync();
 
-                    _flashMessage.Confirmation($"Pedido con Factura Nro {seguimiento.InvoiceNumber} registrado como entregado.");
+                    _flashMessage.Confirmation($"Pedido con Factura Nro {seguimiento.InvoiceNumber} registrado como no entregado.");
                 }
                 return RedirectToAction(nameof(Index));
             }
