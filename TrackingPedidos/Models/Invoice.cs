@@ -13,7 +13,7 @@ namespace TrackingPedidos.Models
         public object shipping_kind { get; set; }
         public object gift { get; set; }
         public int payment_kind_id { get; set; }
-        public int discounts_id { get; set; }
+        public int? discounts_id { get; set; }
         public int client_id { get; set; }
         public int cashier_id { get; set; }
         public string special_contributor { get; set; }
@@ -21,6 +21,8 @@ namespace TrackingPedidos.Models
         public string number_authorization { get; set; }
         public string created_at { get; set; }
         public string updated_at { get; set; }
+        public string sub_total { get; set; }
+        public int module { get; set; }
         public List<InvoiceDetail> invoice_details { get; set; }
         public PaymentKind payment_kind { get; set; }
         public Discount discount { get; set; }
