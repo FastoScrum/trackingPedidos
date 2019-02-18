@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using System;
 using TrackingPedidos.Data;
 using TrackingPedidos.Models;
 using TrackingPedidos.Policies;
+using TrackingPedidos.Services;
 
 namespace TrackingPedidos
 {
@@ -37,11 +39,13 @@ namespace TrackingPedidos
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<IdentityUser, IdentityRole>(config =>
+            services.AddIdentity<ApplicationUser, ApplicationRole>(config =>
             {
                 config.User.RequireUniqueEmail = true;
+                config.SignIn.RequireConfirmedEmail = true;
             })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddDbContext<TrackingContext>(options =>
                 options.UseNpgsql(
@@ -60,6 +64,10 @@ namespace TrackingPedidos
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<Vereyon.Web.IFlashMessage, Vereyon.Web.FlashMessage>();
+
+            services.AddSingleton<IEmailSender, EmailSender>();
+
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -88,7 +96,7 @@ namespace TrackingPedidos
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-           
+
             app.UseAuthentication();
 
             app.UseMvc(routes =>

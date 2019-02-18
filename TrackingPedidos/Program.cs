@@ -19,9 +19,9 @@ namespace TrackingPedidos
                 var serviceProvider = scope.ServiceProvider;
                 try
                 {
-                    var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+                    var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-                    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                    var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
                     DbInitializer.Initialize(userManager, roleManager);
                 }

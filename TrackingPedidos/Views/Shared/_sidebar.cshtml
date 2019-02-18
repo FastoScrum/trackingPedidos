@@ -5,6 +5,7 @@
     var activePedidos = "";
     var activeSeguimiento = "";
     var activeEnvios = "";
+    var activeUsuarios = "";
     if (controller != null)
     {
         var action = ViewContext.RouteData.Values["Action"];
@@ -12,6 +13,7 @@
         activePedidos = controller.ToString().ToLower().Equals("pedidos") ? "active" : "";
         activeSeguimiento = controller.ToString().ToLower().Equals("seguimientos") ? "active" : "";
         activeEnvios = controller.ToString().ToLower().Equals("envios") ? "active" : "";
+        activeUsuarios = controller.ToString().ToLower().Equals("usuarios") ? "active" : ""; 
     }
 
     var isAdmi = User.IsInRole("Administrador");
@@ -41,7 +43,12 @@
     }
     @if (isAdmi)
     {
-
+        <li class="nav-item @activeUsuarios">
+            <a class="nav-link" asp-controller="Usuarios" asp-action="Index">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Usuarios</span>
+            </a>
+        </li>
         <li class="nav-item @activeSeguimiento">
             <a class="nav-link" asp-controller="Seguimientos" asp-action="Index">
                 <i class="fas fa-fw fa-globe"></i>

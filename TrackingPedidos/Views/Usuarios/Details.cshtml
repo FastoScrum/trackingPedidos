@@ -1,0 +1,71 @@
+﻿@model TrackingPedidos.Data.ApplicationUser
+
+@{
+  ViewData["Title"] = "Detalles Usuario";
+}
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-user-alt"></i> <strong>Detalles Usuario</strong>
+      </div>
+      <div class="card-body">
+        <dl class="dl-horizontal">
+          <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+          </dt>
+          <dd>
+            @Html.DisplayFor(model => model.UserName)
+          </dd>
+          <dt>
+            @Html.DisplayNameFor(model => model.Email)
+          </dt>
+          <dd>
+            @Html.DisplayFor(model => model.Email)
+          </dd>
+          @if (Model.LockoutEnd > DateTime.Today)
+          {
+            <dt>
+              @Html.DisplayNameFor(model => model.LockoutEnd)
+            </dt>
+            <dd>
+              @Html.DisplayFor(model => model.LockoutEnd)
+            </dd>
+          }
+          <dt>
+            Rol
+          </dt>
+          <dd>
+            <ul>
+              @foreach (var rol in Model.UserRoles)
+              {
+                <li>@rol.Role.Name</li>
+              }
+            </ul>
+          </dd>
+        </dl>
+      </div>
+      <div class="card-footer">
+        <a class="btn btn-md btn-secondary" asp-action="Index">Regresar</a>
+        @if (!Model.EmailConfirmed)
+        {
+          <input type="button" onclick="resend()" value="Reenviar confirmación" class="btn btn-md btn-primary" />
+        }
+      </div>
+      @if (!Model.EmailConfirmed)
+      {
+        <form asp-action="ResendConfirmation" id="resendForm">
+          <input type="hidden" asp-for="UserName" />
+          <script>
+            function resend() {
+              $('#resendForm').submit();
+            }
+          </script>
+        </form>
+      }
+    </div>
+  </div>
+</div>
+
+<partial name="_modal" />
