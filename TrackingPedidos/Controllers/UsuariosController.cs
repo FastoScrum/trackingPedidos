@@ -86,50 +86,43 @@ namespace TrackingPedidos.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var transaction = _context.Database.BeginTransaction())
+                try
                 {
-                    try
+                    var user = new ApplicationUser
                     {
-                        var user = new ApplicationUser
+                        UserName = userVM.Email,
+                        Email = userVM.Email,
+                        PhoneNumber = userVM.PhoneNumber,
+                        FirstName = userVM.FirstName,
+                        LastName = userVM.LastName
+                    };
+
+                    var password = RandomPassword.GenerateRandomPassword(8);
+
+                    var resultUser = await _userManager.CreateAsync(user, password);
+                    if (resultUser.Succeeded)
+                    {
+                        var resultRol = await _userManager.AddToRoleAsync(user, userVM.Rol);
+                        if (resultRol.Succeeded)
                         {
-                            UserName = userVM.Email,
-                            Email = userVM.Email,
-                            PhoneNumber = userVM.PhoneNumber,
-                            FirstName = userVM.FirstName,
-                            LastName = userVM.LastName
-                        };
+                            await this.SendEmail(user, password);
+                            this._flashMessage.Queue(FlashMessageType.Confirmation, $"Usuario con email <b>{userVM.Email}</b> registrado.", string.Empty, true);
 
-                        var password = RandomPassword.GenerateRandomPassword(8);
-
-                        var resultUser = await _userManager.CreateAsync(user, password);
-                        if (resultUser.Succeeded)
-                        {
-                            var resultRol = await _userManager.AddToRoleAsync(user, userVM.Rol);
-                            if (resultRol.Succeeded)
-                            {
-                                transaction.Commit();
-
-                                await this.SendEmail(user, password);
-                                this._flashMessage.Queue(FlashMessageType.Confirmation, $"Usuario con email <b>{userVM.Email}</b> registrado.", string.Empty, true);
-
-                                return RedirectToAction(nameof(Index));
-                            }
-                            else
-                            {
-                                this._flashMessage.Danger("No se pudo asignar el rol.");
-                                transaction.Rollback();
-                            }
+                            return RedirectToAction(nameof(Index));
                         }
                         else
                         {
-                            this._flashMessage.Queue(FlashMessageType.Danger, $"Verifique que exista un usuario con el email <b>{userVM.Email}</b>.", string.Empty, true);
+                            this._flashMessage.Danger("No se pudo asignar el rol.");
                         }
                     }
-                    catch
+                    else
                     {
-                        transaction.Rollback();
-                        this._flashMessage.Queue(FlashMessageType.Danger, $"Error al crear el usuario <b>{userVM.Email}</b>.", string.Empty, true);
+                        this._flashMessage.Queue(FlashMessageType.Danger, $"Verifique que exista un usuario con el email <b>{userVM.Email}</b>.", string.Empty, true);
                     }
+                }
+                catch
+                {
+                    this._flashMessage.Queue(FlashMessageType.Danger, $"Error al crear el usuario <b>{userVM.Email}</b>.", string.Empty, true);
                 }
             }
 
