@@ -109,7 +109,7 @@ namespace TrackingPedidos
 
             app.UseCookiePolicy();
 
-            RotativaConfiguration.Setup(env);
+            RotativaConfiguration.Setup(env, "Rotativa");
         }
     }
 }

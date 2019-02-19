@@ -6,153 +6,165 @@
 }
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-paper-plane"></i> <strong>Detalles del Envío</strong>
             </div>
             <div class="card-body">
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.InvoiceNumber)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.InvoiceNumber)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.PedLugarOrigen)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.PedLugarOrigen)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.PedFase)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.FullEstado)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.PedTotal)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.PedTotal)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.PedCostoExtra)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.PedCostoExtra)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.PedFechaEnvio)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.PedFechaEnvio)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.PedEnvioEstandar)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.TipoEnvio)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.PedRegalo)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.TipoRegalo)
-                    </dd>
-                    @if (Model.PedRegalo)
-                    {
-                        <dt>
-                            @Html.DisplayNameFor(model => model.PedTarjeta)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.PedTarjeta)
-                        </dd>
-                    }
-                    @if (ViewData["Despachador"] != null)
-                    {
-                        var despachador = (ApplicationUser)ViewData["Despachador"];
-                        <dt>
-                            Datos del Despachador
-                        </dt>
-                        <dd>
-                            <ul>
-                                <li>Nombre: @despachador.FirstName @despachador.LastName</li>
-                                <li>Celular: @despachador.PhoneNumber</li>
-                                <li>Fecha despachado: @Html.DisplayFor(model => model.PedFechaDespachado)</li>
-                            </ul>
-                        </dd>
-                    }
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.InvoiceNumber)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.InvoiceNumber)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PedLugarOrigen)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.PedLugarOrigen)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PedFase)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.FullEstado)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PedTotal)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.PedTotal)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PedCostoExtra)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.PedCostoExtra)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PedFechaEnvio)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.PedFechaEnvio)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PedEnvioEstandar)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.TipoEnvio)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PedRegalo)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.TipoRegalo)
+                            </dd>
+                            @if (Model.PedRegalo)
+                            {
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.PedTarjeta)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.PedTarjeta)
+                                </dd>
+                            }
 
-                    @if (ViewData["Transportista"] != null)
-                    {
-                        var transportista = (ApplicationUser)ViewData["Transportista"];
-                        <dt>
-                            Datos del Transportista
-                        </dt>
-                        <dd>
-                            <ul>
-                                <li>Nombre: @transportista.FirstName @transportista.LastName</li>
-                                <li>Celular: @transportista.PhoneNumber</li>
-                                <li>Fecha de salida: @Html.DisplayFor(model => model.PedFechaCamino)</li>
-                                @if (Model.PedFase == 'E')
+                            @if (Model.PedFase == 'N')
+                            {
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.PedDescripcion)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.PedDescripcion)
+                                </dd>
+                            }
+                        </dl>
+                    </div>
+                    <div class="col-md-6">
+                        <dl class="dl-horizontal">
+                            @if (ViewData["Despachador"] != null)
+                            {
+                                var despachador = (ApplicationUser)ViewData["Despachador"];
+                                <h5>Fase 1: Inicio</h5>
+                                <dt>
+                                    Datos del Despachador
+                                </dt>
+                                <dd>
+                                    <ul>
+                                        <li>Nombre: @despachador.FirstName @despachador.LastName</li>
+                                        <li>Celular: @despachador.PhoneNumber</li>
+                                        <li>Fecha despachado: @Html.DisplayFor(model => model.PedFechaDespachado)</li>
+                                    </ul>
+                                </dd>
+                            }
+
+                            @if (ViewData["Transportista"] != null)
+                            {
+                                var transportista = (ApplicationUser)ViewData["Transportista"];
+                                <h5>Fase 2: En Camino</h5>
+                                <dt>
+                                    Datos del Transportista
+                                </dt>
+                                <dd>
+                                    <ul>
+                                        <li>Nombre: @transportista.FirstName @transportista.LastName</li>
+                                        <li>Celular: @transportista.PhoneNumber</li>
+                                        <li>Fecha de salida: @Html.DisplayFor(model => model.PedFechaCamino)</li>
+                                        @if (Model.PedFase == 'E')
+                                        {
+                                            <li>Tiempo aproximado de llegada: @Html.DisplayFor(model => model.TiempoEstimado) día(s)</li>
+                                        }
+                                    </ul>
+                                </dd>
+                            }
+
+                            @if (ViewData["Distribuidor"] != null)
+                            {
+                                var distribuidor = (ApplicationUser)ViewData["Distribuidor"];
+                                <h5>Fase 3: En Distribuidora</h5>
+                                <dt>
+                                    Datos del Distribuidor
+                                </dt>
+                                <dd>
+                                    <ul>
+                                        <li>Nombre: @distribuidor.FirstName @distribuidor.LastName</li>
+                                        <li>Celular: @distribuidor.PhoneNumber</li>
+                                        <li>Llegó a la distribuidora: @Html.DisplayFor(model => model.PedFechaFin)</li>
+                                    </ul>
+                                </dd>
+                            }
+
+                            @if (ViewData["Mensajero"] != null)
+                            {
+                                var mensajero = (ApplicationUser)ViewData["Mensajero"];
+                                <h5>Fase 4: Entregado</h5>
+                                <dt>
+                                    Datos del Mensajero
+                                </dt>
+                                <dd>
+                                    <ul>
+                                        <li>Nombre: @mensajero.FirstName @mensajero.LastName</li>
+                                        <li>Celular: @mensajero.PhoneNumber</li>
+                                        <li>Fecha de entrega: @Html.DisplayFor(model => model.PedFechaEntrega)</li>
+                                    </ul>
+                                </dd>
+                                @if (Model.Entregas != null)
                                 {
-                                    <li>Tiempo aproximado de llegada: @Html.DisplayFor(model => model.TiempoEstimado) día(s)</li>
+                                    <dt>
+                                        Entregado a:
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Entregas.FullName)
+                                    </dd>
                                 }
-                            </ul>
-                        </dd>
-                    }
-
-                    @if (ViewData["Distribuidor"] != null)
-                    {
-                        var distribuidor = (ApplicationUser)ViewData["Distribuidor"];
-                        <dt>
-                            Datos del Distribuidor
-                        </dt>
-                        <dd>
-                            <ul>
-                                <li>Nombre: @distribuidor.FirstName @distribuidor.LastName</li>
-                                <li>Celular: @distribuidor.PhoneNumber</li>
-                                <li>Llegó a la distribuidora: @Html.DisplayFor(model => model.PedFechaFin)</li>
-                            </ul>
-                        </dd>
-                    }
-
-                    @if (ViewData["Mensajero"] != null)
-                    {
-                        var mensajero = (ApplicationUser)ViewData["Mensajero"];
-                        <dt>
-                            Datos del Mensajero
-                        </dt>
-                        <dd>
-                            <ul>
-                                <li>Nombre: @mensajero.FirstName @mensajero.LastName</li>
-                                <li>Celular: @mensajero.PhoneNumber</li>
-                                <li>Fecha de entrega: @Html.DisplayFor(model => model.PedFechaEntrega)</li>
-                            </ul>
-                        </dd>
-                    }
-
-                    @if (Model.PedFase == 'N')
-                    {
-                        <dt>
-                            @Html.DisplayNameFor(model => model.PedDescripcion)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.PedDescripcion)
-                        </dd>
-                    }
-                    @if (Model.Entregas != null)
-                    {
-                        <dt>
-                            Entregado a:
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.Entregas.FullName)
-                        </dd>
-                    }
-                </dl>
+                            }
+                        </dl>
+                    </div>
+                </div>
             </div>
             <div class="card-footer">
                 <a class="btn btn-md btn-secondary" asp-action="Index">Regresar</a>
