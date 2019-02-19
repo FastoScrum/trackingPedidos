@@ -2,6 +2,10 @@
 
 @{
     ViewData["Title"] = "Seguimientos";
+    var isDespachador = User.IsInRole("Despachador");
+    var isTransportista = User.IsInRole("Transportista");
+    var isDistribuidor = User.IsInRole("Distribuidor");
+    var isMensajero = User.IsInRole("Mensajero");
 }
 
 <div class="card mb-3">
@@ -45,22 +49,22 @@
                             <td>@item.FullEstado</td>
                             <td>@item.PedFechaEnvio</td>
                             <td>
-                                @if (item.PedFase == 'P')
+                                @if (item.PedFase == 'P' && isDespachador)
                                 {
                                     <a class="btn btn-success btn-xs active" title="Despachar" data-toggle="modal" data-target="#modalConfirm"
                                        data-action="PackOff" data-id="@item.PedId" data-factura="@item.InvoiceNumber"><i class="fa fa-box-open" aria-hidden="true"></i></a>
                                 }
-                                else if (item.PedFase == 'I')
+                                else if (item.PedFase == 'I' && isTransportista)
                                 {
                                     <a class="btn btn-success btn-xs active" title="Poner en camino" data-toggle="modal" data-target="#modalConfirm"
                                        data-action="OnWay" data-id="@item.PedId" data-factura="@item.InvoiceNumber"><i class="fa fa-truck-loading" aria-hidden="true"></i></a>
                                 }
-                                else if (item.PedFase == 'C')
+                                else if (item.PedFase == 'C' && isDistribuidor)
                                 {
                                     <a class="btn btn-success btn-xs active" title="Finalizar" data-toggle="modal" data-target="#modalConfirm"
                                        data-action="End" data-id="@item.PedId" data-factura="@item.InvoiceNumber"><i class="fa fa-flag-checkered" aria-hidden="true"></i></a>
                                 }
-                                else if (item.PedFase == 'F')
+                                else if (item.PedFase == 'F' && isMensajero)
                                 {
                                     <a class="btn btn-success btn-xs active" title="Entregar" asp-action="Delivery" asp-route-id="@item.InvoiceNumber"><i class="fa fa-archive" aria-hidden="true"></i></a>
                                 }

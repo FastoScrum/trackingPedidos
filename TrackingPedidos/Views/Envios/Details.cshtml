@@ -1,4 +1,5 @@
 ﻿@model TrackingPedidos.Models.Pedidos
+@using TrackingPedidos.Data;
 
 @{
     ViewData["Title"] = "Detalles del Envío";
@@ -63,49 +64,71 @@
                             @Html.DisplayFor(model => model.PedTarjeta)
                         </dd>
                     }
-                    @if (Model.PedFase == 'I')
+                    @if (ViewData["Despachador"] != null)
                     {
+                        var despachador = (ApplicationUser)ViewData["Despachador"];
                         <dt>
-                            @Html.DisplayNameFor(model => model.PedFechaDespachado)
+                            Datos del Despachador
                         </dt>
                         <dd>
-                            @Html.DisplayFor(model => model.PedFechaDespachado)
+                            <ul>
+                                <li>Nombre: @despachador.FirstName @despachador.LastName</li>
+                                <li>Celular: @despachador.PhoneNumber</li>
+                                <li>Fecha despachado: @Html.DisplayFor(model => model.PedFechaDespachado)</li>
+                            </ul>
                         </dd>
                     }
-                    else if (Model.PedFase == 'C')
+
+                    @if (ViewData["Transportista"] != null)
                     {
+                        var transportista = (ApplicationUser)ViewData["Transportista"];
                         <dt>
-                            @Html.DisplayNameFor(model => model.PedFechaCamino)
+                            Datos del Transportista
                         </dt>
                         <dd>
-                            @Html.DisplayFor(model => model.PedFechaCamino)
-                        </dd>
-                        <dt>
-                            Tiempo aproximado de llegada
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.TiempoEstimado) día(s)
+                            <ul>
+                                <li>Nombre: @transportista.FirstName @transportista.LastName</li>
+                                <li>Celular: @transportista.PhoneNumber</li>
+                                <li>Fecha de salida: @Html.DisplayFor(model => model.PedFechaCamino)</li>
+                                @if (Model.PedFase == 'E')
+                                {
+                                    <li>Tiempo aproximado de llegada: @Html.DisplayFor(model => model.TiempoEstimado) día(s)</li>
+                                }
+                            </ul>
                         </dd>
                     }
-                    else if (Model.PedFase == 'F')
+
+                    @if (ViewData["Distribuidor"] != null)
                     {
+                        var distribuidor = (ApplicationUser)ViewData["Distribuidor"];
                         <dt>
-                            @Html.DisplayNameFor(model => model.PedFechaFin)
+                            Datos del Distribuidor
                         </dt>
                         <dd>
-                            @Html.DisplayFor(model => model.PedFechaFin)
+                            <ul>
+                                <li>Nombre: @distribuidor.FirstName @distribuidor.LastName</li>
+                                <li>Celular: @distribuidor.PhoneNumber</li>
+                                <li>Llegó a la distribuidora: @Html.DisplayFor(model => model.PedFechaFin)</li>
+                            </ul>
                         </dd>
                     }
-                    else if (Model.PedFase == 'E')
+
+                    @if (ViewData["Mensajero"] != null)
                     {
+                        var mensajero = (ApplicationUser)ViewData["Mensajero"];
                         <dt>
-                            @Html.DisplayNameFor(model => model.PedFechaEntrega)
+                            Datos del Mensajero
                         </dt>
                         <dd>
-                            @Html.DisplayFor(model => model.PedFechaEntrega)
+                            <ul>
+                                <li>Nombre: @mensajero.FirstName @mensajero.LastName</li>
+                                <li>Celular: @mensajero.PhoneNumber</li>
+                                <li>Fecha de entrega: @Html.DisplayFor(model => model.PedFechaEntrega)</li>
+                            </ul>
                         </dd>
                     }
-                    else if (Model.PedFase == 'N')
+
+                    @if (Model.PedFase == 'N')
                     {
                         <dt>
                             @Html.DisplayNameFor(model => model.PedDescripcion)
@@ -117,7 +140,7 @@
                     @if (Model.Entregas != null)
                     {
                         <dt>
-                           Entregado a:
+                            Entregado a:
                         </dt>
                         <dd>
                             @Html.DisplayFor(model => model.Entregas.FullName)

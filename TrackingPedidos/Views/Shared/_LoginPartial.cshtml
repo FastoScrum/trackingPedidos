@@ -17,7 +17,7 @@
         </li>
     </ul>
 
-    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm">
+    <form asp-area="Identity" asp-page="/Account/Logout" method="post" id="logoutForm">
         <script>
             function logout() {
                 $('#logoutForm').submit();

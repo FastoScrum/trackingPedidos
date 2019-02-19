@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TrackingPedidos.Models.Pedidos>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reporte de pedidos enviados en @ViewBag.Fecha</title>
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style>
+        .report-title {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="report-title"><b>Reporte de pedidos enviados en @ViewData["Fecha"]</b></h1>
+    <h4><b>Total de pedidos:</b> @Model.Count()</h4>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Número Factura</th>
+                <th>Total</th>
+                <th>Lugar Origen</th>
+                <th>Lugar Destino</th>
+                <th>Estado</th>
+                <th>Fecha Despachado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.InvoiceNumber</td>
+                    <td style="text-align:right">@item.PedTotal</td>
+                    <td>@item.PedLugarOrigen</td>
+                    <td>@item.PedLugarDestino</td>
+                    <td>@item.FullEstado</td>
+                    <td>@item.PedFechaDespachado</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

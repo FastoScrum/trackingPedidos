@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Reportes";
+}
+
+<p>
+    <a class="btn btn-primary" target="_blank" asp-controller="Reportes" asp-action="General">Reporte General</a>
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-file-pdf"></i> <strong>Reporte por fecha</strong>
+            </div>
+            <form method="post" asp-action="PorFecha" target="_blank">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="Fecha" class="control-label">Fecha</label>
+                        <input type="date" id="Fecha" name="Fecha" required class="form-control col-md-6" />
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-md btn-primary">Generar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-file-pdf"></i> <strong>Reporte por estado</strong>
+            </div>
+            <form method="post" asp-action="PorEstado" target="_blank">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="Estado" class="control-label">Estado</label>
+                        <select type="date" id="Estado" name="Estado" required class="form-control col-md-6">
+                            <option value="">Seleccionar</option>
+                            <option value="E">Entregado</option>
+                            <option value="C">En camino</option>
+                            <option value="F">En distribuidora</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-md btn-primary">Generar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

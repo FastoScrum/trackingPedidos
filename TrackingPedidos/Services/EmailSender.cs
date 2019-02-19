@@ -8,15 +8,15 @@ namespace TrackingPedidos.Services
 {
     public class EmailSender : IEmailSender
     {
+        public AuthMessageSenderOptions Options { get; }
+
         public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)
         {
             Options = optionsAccessor.Value;
-            Options.SMTP_Username = "cristopher.baldor.supremo@gmail.com";
-            Options.SMTP_Password = "fisivalencia2015";
-            Options.SMTP_Server = "smtp.gmail.com";
+            Options.SMTP_Username = "andres.andy63@hotmail.com";
+            Options.SMTP_Password = "amoaliga07";
+            Options.SMTP_Server = "smtp.live.com";
         }
-
-        public AuthMessageSenderOptions Options { get; } //set only via Secret Manager
 
         public Task SendEmailAsync(string email, string subject, string message)
         {

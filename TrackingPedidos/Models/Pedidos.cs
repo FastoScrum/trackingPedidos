@@ -60,6 +60,11 @@ namespace TrackingPedidos.Models
         [Display(Name = "Tarjeta")]
         public string PedTarjeta { get; set; }
 
+        public string Despachador { get; set; }
+        public string Transportista { get; set; }
+        public string Distribuidor { get; set; }
+        public string Mensajero { get; set; }
+
         public Entregas Entregas { get; set; }
 
         public string TipoEnvio

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Rotativa.AspNetCore;
 using System;
 using TrackingPedidos.Data;
 using TrackingPedidos.Models;
@@ -107,6 +108,8 @@ namespace TrackingPedidos
             });
 
             app.UseCookiePolicy();
+
+            RotativaConfiguration.Setup(env);
         }
     }
 }

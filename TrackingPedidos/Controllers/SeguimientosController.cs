@@ -11,7 +11,7 @@ using Vereyon.Web;
 
 namespace TrackingPedidos.Controllers
 {
-    [Authorize(Roles = "Administrador")]
+    [Authorize]
     public class SeguimientosController : Controller
     {
         private readonly TrackingContext _context;
@@ -28,13 +28,14 @@ namespace TrackingPedidos.Controllers
         // GET: Seguimientos
         public async Task<IActionResult> Index()
         {
-            var seguimiento = await _context.Pedidos.OrderByDescending(i => i.PedFechaDespachado).AsNoTracking().ToListAsync();
+            var seguimiento = await _context.Pedidos.OrderByDescending(i => i.PedFechaEnvio).AsNoTracking().ToListAsync();
             return View(seguimiento);
         }
 
         // POST: Seguimientos/PackOff/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Despachador")]
         public async Task<IActionResult> PackOff(int id)
         {
             try
@@ -45,6 +46,7 @@ namespace TrackingPedidos.Controllers
                     return NotFound();
                 }
 
+                seguimiento.Despachador = User.Identity.Name;
                 seguimiento.PedFase = 'I';
                 seguimiento.PedFechaDespachado = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.Local);
 
@@ -62,6 +64,7 @@ namespace TrackingPedidos.Controllers
         // POST: Seguimientos/OnWay/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Transportista")]
         public async Task<IActionResult> OnWay(int id)
         {
             try
@@ -72,6 +75,7 @@ namespace TrackingPedidos.Controllers
                     return NotFound();
                 }
 
+                seguimiento.Transportista = User.Identity.Name;
                 seguimiento.PedFase = 'C';
                 seguimiento.PedFechaCamino = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.Local);
 
@@ -89,6 +93,7 @@ namespace TrackingPedidos.Controllers
         // POST: Seguimiento/End/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Distribuidor")]
         public async Task<IActionResult> End(int id)
         {
             try
@@ -99,6 +104,7 @@ namespace TrackingPedidos.Controllers
                     return NotFound();
                 }
 
+                seguimiento.Distribuidor = User.Identity.Name;
                 seguimiento.PedFase = 'F';
                 seguimiento.PedFechaFin = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.Local);
 
@@ -114,6 +120,7 @@ namespace TrackingPedidos.Controllers
         }
 
         // GET: Seguimiento/Delivery/584848445484
+        [Authorize(Roles = "Mensajero")]
         public IActionResult Delivery(string id)
         {
             return View();
@@ -122,6 +129,7 @@ namespace TrackingPedidos.Controllers
         // POST: Seguimiento/Delivery/584848445484
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Mensajero")]
         public async Task<IActionResult> Delivery(string id, EntregaVM _entrega)
         {
             if(_entrega.Estado && _entrega.PersonaPresente)
@@ -147,6 +155,7 @@ namespace TrackingPedidos.Controllers
 
                 if (_entrega.Estado)
                 {
+                    seguimiento.Mensajero = User.Identity.Name;
                     seguimiento.PedFase = 'E';
                     seguimiento.PedFechaEntrega = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.Local);
 

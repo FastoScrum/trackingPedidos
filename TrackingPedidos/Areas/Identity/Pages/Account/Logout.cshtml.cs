@@ -3,15 +3,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
+using TrackingPedidos.Data;
 
 namespace TrackingPedidos.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LogoutModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public LogoutModel(SignInManager<IdentityUser> signInManager)
+        public LogoutModel(SignInManager<ApplicationUser> signInManager)
         {
             _signInManager = signInManager;
         }
@@ -20,17 +21,10 @@ namespace TrackingPedidos.Areas.Identity.Pages.Account
         {
         }
 
-        public async Task<IActionResult> OnPost(string returnUrl = null)
+        public async Task<IActionResult> OnPost()
         {
             await _signInManager.SignOutAsync();
-            if (returnUrl != null)
-            {
-                return LocalRedirect(returnUrl);
-            }
-            else
-            {
-                return Page();
-            }
+            return LocalRedirect("~/");
         }
     }
 }

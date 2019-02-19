@@ -6,6 +6,7 @@
     var activeSeguimiento = "";
     var activeEnvios = "";
     var activeUsuarios = "";
+    var activeReportes = "";
     if (controller != null)
     {
         var action = ViewContext.RouteData.Values["Action"];
@@ -13,10 +14,12 @@
         activePedidos = controller.ToString().ToLower().Equals("pedidos") ? "active" : "";
         activeSeguimiento = controller.ToString().ToLower().Equals("seguimientos") ? "active" : "";
         activeEnvios = controller.ToString().ToLower().Equals("envios") ? "active" : "";
-        activeUsuarios = controller.ToString().ToLower().Equals("usuarios") ? "active" : ""; 
+        activeUsuarios = controller.ToString().ToLower().Equals("usuarios") ? "active" : "";
+        activeReportes = controller.ToString().ToLower().Equals("reportes") ? "active" : "";
     }
 
     var isAdmi = User.IsInRole("Administrador");
+    var isCliente = User.IsInRole("Cliente");
 }
 
 <ul class="sidebar navbar-nav">
@@ -26,7 +29,7 @@
             <span>Dashboard</span>
         </a>
     </li>
-    @if (!isAdmi)
+    @if (isCliente)
     {
         <li class="nav-item @activePedidos">
             <a class="nav-link" asp-controller="Pedidos" asp-action="Index">
@@ -49,6 +52,16 @@
                 <span>Usuarios</span>
             </a>
         </li>
+        <li class="nav-item @activeReportes">
+            <a class="nav-link" asp-controller="Reportes" asp-action="Index">
+                <i class="fas fa-fw fa-file-pdf"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+    }
+
+    @if (!isAdmi && !isCliente)
+    {
         <li class="nav-item @activeSeguimiento">
             <a class="nav-link" asp-controller="Seguimientos" asp-action="Index">
                 <i class="fas fa-fw fa-globe"></i>

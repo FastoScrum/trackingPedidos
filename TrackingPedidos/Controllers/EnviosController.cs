@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using TrackingPedidos.Data;
 using TrackingPedidos.Models;
 
 namespace TrackingPedidos.Controllers
@@ -11,10 +12,12 @@ namespace TrackingPedidos.Controllers
     public class EnviosController : Controller
     {
         private readonly TrackingContext _context;
+        private readonly ApplicationDbContext _contextIdentity;
 
-        public EnviosController(TrackingContext context)
+        public EnviosController(TrackingContext context, ApplicationDbContext contextIdentity)
         {
             _context = context;
+            _contextIdentity = contextIdentity;
         }
 
         public async Task<IActionResult> Index()
@@ -39,6 +42,26 @@ namespace TrackingPedidos.Controllers
             if (pedido.ClienteEmail != email)
             {
                 return Forbid();
+            }
+
+            if (pedido.Despachador != null)
+            {
+                ViewData["Despachador"] = await _contextIdentity.ApplicationUser.FirstOrDefaultAsync(i => i.UserName == pedido.Despachador);
+            }
+
+            if (pedido.Transportista != null)
+            {
+                ViewData["Transportista"] = await _contextIdentity.ApplicationUser.FirstOrDefaultAsync(i => i.UserName == pedido.Transportista);
+            }
+
+            if (pedido.Distribuidor != null)
+            {
+                ViewData["Distribuidor"] = await _contextIdentity.ApplicationUser.FirstOrDefaultAsync(i => i.UserName == pedido.Distribuidor);
+            }
+
+            if (pedido.Mensajero != null)
+            {
+                ViewData["Mensajero"] = await _contextIdentity.ApplicationUser.FirstOrDefaultAsync(i => i.UserName == pedido.Mensajero);
             }
 
             return View(pedido);

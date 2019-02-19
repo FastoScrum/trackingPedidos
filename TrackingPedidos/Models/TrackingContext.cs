@@ -135,6 +135,11 @@ namespace TrackingPedidos.Models
                 entity.Property(e => e.PedTotal)
                     .HasColumnName("ped_total")
                     .HasColumnType("numeric(8,2)");
+
+                entity.Property(e => e.Despachador).HasColumnName("usuario_despachador");
+                entity.Property(e => e.Transportista).HasColumnName("usuario_transportista");
+                entity.Property(e => e.Distribuidor).HasColumnName("usuario_distribuidor");
+                entity.Property(e => e.Mensajero).HasColumnName("usuario_mensajero");
             });
 
             modelBuilder.HasSequence<int>("entregas_ent_id_seq");
