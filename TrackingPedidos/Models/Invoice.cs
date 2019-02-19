@@ -15,7 +15,7 @@ namespace TrackingPedidos.Models
         public int payment_kind_id { get; set; }
         public int? discounts_id { get; set; }
         public int client_id { get; set; }
-        public int cashier_id { get; set; }
+        public int? cashier_id { get; set; }
         public string special_contributor { get; set; }
         public string accounting { get; set; }
         public string number_authorization { get; set; }
