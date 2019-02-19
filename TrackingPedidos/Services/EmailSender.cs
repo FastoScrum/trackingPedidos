@@ -13,9 +13,9 @@ namespace TrackingPedidos.Services
         public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)
         {
             Options = optionsAccessor.Value;
-            Options.SMTP_Username = "andres.andy63@hotmail.com";
-            Options.SMTP_Password = "amoaliga07";
-            Options.SMTP_Server = "smtp.live.com";
+            Options.SMTP_Username = "machdeto@gmail.com";
+            Options.SMTP_Password = "mau521300";
+            Options.SMTP_Server = "smtp.gmail.com";
         }
 
         public Task SendEmailAsync(string email, string subject, string message)
