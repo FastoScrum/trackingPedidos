@@ -1,3 +1,54 @@
 ﻿@{
     ViewData["Title"] = "Dashboard";
 }
+
+@if (User.IsInRole("Administrador"))
+{
+    <div class="row">
+        <div class="card-deck">
+            <div class="card">
+                <i class="fa fa-box font-large" aria-hidden="true"></i>
+                <div class="card-body">
+                    <h5 class="card-title">Pedidos Pendientes</h5>
+                    <p class="card-text">@ViewBag.Pendientes</p>
+                </div>
+            </div>
+            <div class="card">
+                <i class="fa fa-truck-moving font-large" aria-hidden="true"></i>
+                <div class="card-body">
+                    <h5 class="card-title">Pedidos en Camino</h5>
+                    <p class="card-text">@ViewBag.EnCamino</p>
+                </div>
+            </div>
+            <div class="card">
+                <i class="fa fa-industry font-large" aria-hidden="true"></i>
+                <div class="card-body">
+                    <h5 class="card-title">Pedidos en Distribuidora</h5>
+                    <p class="card-text">@ViewBag.EnDistribuidora</p>
+                </div>
+            </div>
+            <div class="card">
+                <i class="fa fa-box-open font-large" aria-hidden="true"></i>
+                <div class="card-body">
+                    <h5 class="card-title">Pedidos Entregados</h5>
+                    <p class="card-text">@ViewBag.Entregados</p>
+                </div>
+            </div>
+            <div class="card">
+                <i class="fa fa-ban font-large" aria-hidden="true"></i>
+                <div class="card-body">
+                    <h5 class="card-title">Pedidos No Entregados</h5>
+                    <p class="card-text">@ViewBag.NoEntregados</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Styles{ 
+    <style>
+        .font-large{
+            font-size:500%;
+        }
+    </style>
+}
