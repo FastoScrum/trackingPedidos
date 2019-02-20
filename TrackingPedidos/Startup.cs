@@ -43,7 +43,7 @@ namespace TrackingPedidos
             services.AddIdentity<ApplicationUser, ApplicationRole>(config =>
             {
                 config.User.RequireUniqueEmail = true;
-                config.SignIn.RequireConfirmedEmail = true;
+                config.SignIn.RequireConfirmedEmail = false;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();

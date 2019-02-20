@@ -97,15 +97,12 @@ namespace TrackingPedidos.Controllers
                         LastName = userVM.LastName
                     };
 
-                    var password = RandomPassword.GenerateRandomPassword(8);
-
-                    var resultUser = await _userManager.CreateAsync(user, password);
+                    var resultUser = await _userManager.CreateAsync(user, userVM.Password);
                     if (resultUser.Succeeded)
                     {
                         var resultRol = await _userManager.AddToRoleAsync(user, userVM.Rol);
                         if (resultRol.Succeeded)
                         {
-                            await this.SendEmail(user, password);
                             this._flashMessage.Queue(FlashMessageType.Confirmation, $"Usuario con email <b>{userVM.Email}</b> registrado.", string.Empty, true);
 
                             return RedirectToAction(nameof(Index));
@@ -117,10 +114,10 @@ namespace TrackingPedidos.Controllers
                     }
                     else
                     {
-                        this._flashMessage.Queue(FlashMessageType.Danger, $"Verifique que exista un usuario con el email <b>{userVM.Email}</b>.", string.Empty, true);
+                        this._flashMessage.Queue(FlashMessageType.Danger, $"Verifique que no exista un usuario con el email <b>{userVM.Email}</b>.", string.Empty, true);
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     this._flashMessage.Danger(e.Message);
                     this._flashMessage.Queue(FlashMessageType.Danger, $"Error al crear el usuario <b>{userVM.Email}</b>.", string.Empty, true);
