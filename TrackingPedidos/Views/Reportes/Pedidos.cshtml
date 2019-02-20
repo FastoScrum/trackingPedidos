@@ -1,69 +1,84 @@
 ﻿@model IEnumerable<TrackingPedidos.Models.Pedidos>
 @{
-    Layout = null;
     var estado = ViewData["Estado"].ToString();
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>@ViewData["Title"]</title>
-    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+<h1 class="report-title"><b>@ViewData["Title"]</b></h1>
+<h4><b>Total de pedidos:</b> @Model.Count()</h4>
+<table class="table table-bordered" style="width:100%" id="dataTable">
+    <thead class="thead-dark">
+        <tr>
+            <th>Número Factura</th>
+            <th>Total</th>
+            <th>Lugar Origen</th>
+            <th>Lugar Destino</th>
+            @if (estado == "E")
+            {
+                <th>Fecha de Entrega</th>
+            }
+            else if (estado == "C")
+            {
+                <th>Fecha de en camino</th>
+            }
+            else
+            {
+                <th>Fecha de en distribuidora</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.InvoiceNumber</td>
+                <td style="text-align:right">@item.PedTotal</td>
+                <td>@item.PedLugarOrigen</td>
+                <td>@item.PedLugarDestino</td>
+                <td>
+                    @if (estado == "E")
+                    {
+                        @item.PedFechaEntrega
+                    }
+                    else if (estado == "C")
+                    {
+                        @item.PedFechaCamino
+                    }
+                    else
+                    {
+                        @item.PedFechaFin
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Styles{
+    <link href="~/lib/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" rel="stylesheet">
     <style>
         .report-title {
             color: red;
             text-align: center;
         }
     </style>
-</head>
-<body>
-    <h1 class="report-title"><b>@ViewData["Title"]</b></h1>
-    <h4><b>Total de pedidos:</b> @Model.Count()</h4>
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th>Número Factura</th>
-                <th>Total</th>
-                <th>Lugar Origen</th>
-                <th>Lugar Destino</th>
-                @if (estado == "E")
-                {
-                    <th>Fecha de Entrega</th>
-                }
-                else if (estado == "C")
-                {
-                    <th>Fecha de en camino</th>
-                }
-                else
-                {
-                    <th>Fecha de en distribuidora</th>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.InvoiceNumber</td>
-                    <td style="text-align:right">@item.PedTotal</td>
-                    <td>@item.PedLugarOrigen</td>
-                    <td>@item.PedLugarDestino</td>
-                    <td>
-                        @if (estado == "E")
-                        {
-                            @item.PedFechaEntrega
-                        }
-                        else if (estado == "C")
-                        {
-                            @item.PedFechaCamino
-                        }
-                        else
-                        {
-                            @item.PedFechaFin
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</body>
-</html>
+}
+
+@section Scripts{
+    <script src="~/lib/datatables/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/dataTables.bootstrap4.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'pdf'
+                ]
+            });
+        });
+    </script>
+}

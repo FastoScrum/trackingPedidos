@@ -52,11 +52,15 @@
                 <span>Usuarios</span>
             </a>
         </li>
-        <li class="nav-item @activeReportes">
-            <a class="nav-link" asp-controller="Reportes" asp-action="Index">
+        <li class="nav-item @activeReportes dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-file-pdf"></i>
                 <span>Reportes</span>
             </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                <a class="dropdown-item" asp-controller="Reportes" asp-action="General">General</a>
+                <a class="dropdown-item" asp-controller="Reportes" asp-action="Index">Personalizado</a>
+            </div>
         </li>
     }
 

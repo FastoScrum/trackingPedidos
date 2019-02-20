@@ -27,7 +27,8 @@ namespace TrackingPedidos.Controllers
         public async Task<IActionResult> General()
         {
             var seguimientos = await _context.Pedidos.OrderByDescending(i => i.PedFechaEnvio).AsNoTracking().ToListAsync();
-            return new ViewAsPdf(seguimientos);
+            return View(seguimientos);
+            //return new ViewAsPdf(seguimientos);
         }
 
         [HttpPost]
@@ -57,7 +58,8 @@ namespace TrackingPedidos.Controllers
                     .AsNoTracking().ToListAsync();
 
                 ViewData["Fecha"] = new DateTime(year, mes, dia).ToShortDateString();
-                return new ViewAsPdf(seguimientos, ViewData);
+                //return new ViewAsPdf(seguimientos, ViewData);
+                return View(seguimientos);
             }
             catch
             {
@@ -84,7 +86,8 @@ namespace TrackingPedidos.Controllers
                                     .OrderByDescending(i => i.PedFechaEntrega)
                                     .AsNoTracking().ToListAsync();
 
-                return new ViewAsPdf(seguimientos, ViewData);
+                //return new ViewAsPdf(seguimientos, ViewData);
+                return View(seguimientos);
             }
             else if (estado.Equals("C"))
             {
@@ -94,7 +97,8 @@ namespace TrackingPedidos.Controllers
                                     .OrderByDescending(i => i.PedFechaCamino)
                                     .AsNoTracking().ToListAsync();
 
-                return new ViewAsPdf(seguimientos, ViewData);
+                return View(seguimientos);
+                //return new ViewAsPdf(seguimientos, ViewData);
             }
             else
             {
@@ -104,7 +108,8 @@ namespace TrackingPedidos.Controllers
                                     .OrderByDescending(i => i.PedFechaFin)
                                     .AsNoTracking().ToListAsync();
 
-                return new ViewAsPdf(seguimientos, ViewData);
+                return View(seguimientos);
+                //return new ViewAsPdf(seguimientos, ViewData);
             }
         }
     }
