@@ -120,8 +120,9 @@ namespace TrackingPedidos.Controllers
                         this._flashMessage.Queue(FlashMessageType.Danger, $"Verifique que exista un usuario con el email <b>{userVM.Email}</b>.", string.Empty, true);
                     }
                 }
-                catch
+                catch(Exception e)
                 {
+                    this._flashMessage.Danger(e.Message);
                     this._flashMessage.Queue(FlashMessageType.Danger, $"Error al crear el usuario <b>{userVM.Email}</b>.", string.Empty, true);
                 }
             }
